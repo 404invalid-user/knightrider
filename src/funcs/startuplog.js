@@ -7,7 +7,7 @@ const { version } = require('../../package.json')
 module.exports = async() => {
     let latestVersion;
     let updatenote = 'no note';
-    await fetch('https://raw.githubusercontent.com/404invalid-user/discord-bitfield-calculator/main/package.json')
+    await fetch('https://raw.githubusercontent.com/404invalid-user/knightrider/main/package.json')
         .then(res => res.json())
         .then(json => {
             latestVersion = json.version;
