@@ -81,7 +81,7 @@ module.exports = {
                     if (userGuild.owner == true) {
                         guilds.push({ id: userGuild.id, name: userGuild.name, icon: `https://cdn.discordapp.com/icons/${userGuild.id}/${userGuild.icon}.webp`, mutual: true, userPermission: 'owner' });
                     } else {
-                        if (client.guilds.cache.get(currentServer.id).members.find(currentUser.userId).roles.cache.find(r => currentServer.staffRoles.includes(r.name))) {
+                        if (client.guilds.cache.get(currentServer.id).members.find(userInfo.userId).roles.cache.find(r => currentServer.staffRoles.includes(r.name))) {
                             guilds.push({ id: userGuild.id, name: userGuild.name, icon: `https://cdn.discordapp.com/icons/${userGuild.id}/${userGuild.icon}.webp`, mutual: true, userPermission: 'staffrole' });
                         } else {
                             currentServer.staff.forEach(userid => {
