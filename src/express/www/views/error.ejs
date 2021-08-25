@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/logo.png">
+    <script defer src="/js/client.js"></script>
+    <title>dashboard :: knightrider</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+        }
+        
+        .button {
+            background-color: #5865F2;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            background-color: #5460e7;
+        }
+    </style>
+</head>
+
+<body>
+    <script defer src="/js/client.js"></script>
+    <div id="mobilenavbar" class="mobnav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a onclick="closeNav()" href="http://knightrider.rf.gd/">Home</a>
+        <a onclick="closeNav()" href="http://knightrider.rf.gd/er/">Report Error</a>
+        <a onclick="closeNav()" href="http://knightrider.rf.gd/docs/">Docs</a>
+    </div>
+    <div id="nav" class="navbar">
+        <ul class="desktop-nav">
+            <li class="active"><a href="http://knightrider.rf.gd/">Home</a></li>
+            <li><a href="http://knightrider.rf.gd/er/">Report Error</a></li>
+            <li><a href="http://knightrider.rf.gd/docs/">Docs</a></li>
+        </ul>
+        <span class="mobilenavbtn" style="color:#ffffff;font-size:30px;cursor:pointer;float:right;margin-right:3.5%;" onclick="openNav()">&#9776;</span>
+    </div>
+
+
+
+
+
+
+
+    <div style="margin-top: 60px;color:#ffffff;">
+        <p>
+            <%= error %>
+        </p>
+        <p>
+            <%= errorMessage %>
+        </p>
+    </div>
+</body>
+
+</html>

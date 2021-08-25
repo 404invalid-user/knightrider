@@ -1,0 +1,39 @@
+<div class="menu">
+    <div class="dropdown">
+        <div class="serverinfo dropbtn">
+            <div class="server-main-items">
+                <div><img class="server-main-img" src="<%= currentServer.icon %>"></div>
+                <span><%= currentServer.name %></span>
+
+                <div>▼</div>
+            </div>
+            <div class="server-sub-items">
+                <span><%= currentServer.id %></span>
+            </div>
+        </div>
+        <div class="dropdown-content">
+            <% currentUser.guilds.forEach(guild => { %>
+                <% if(guild.mutual == true) { %>
+                    <div class="serverinfo">
+                        <a href="/server/<%= guild.id %>">
+                            <div class="server-main-items">
+                                <div><img class="server-main-img" src="<%= guild.icon %>"></div>
+                                <span><%= guild.name %></span>
+
+                            </div>
+                        </a>
+                    </div>
+                    <% } %>
+                        <% }) %>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <div><a id="overview" class="button" href="/server/<%= currentServer.id%>">Overview</a></div>
+        <div><a id="filter" class="button" href="/server/<%= currentServer.id %>/filter">Filter</a></div>
+        <div><a id="reactionroles" class="button" href="/server/<%= currentServer.id %>/reactionroles">Reaction Roles</a></div>
+        <div><a id="userinfo" class="button" href="/server/<%= currentServer.id %>/userinfo">Member Information</a></div>
+        <div><a id="message" class="button" href="/server/<%= currentServer.id %>/message">Sent Embeds And Messages</a></div>
+    </div>
+
+</div>

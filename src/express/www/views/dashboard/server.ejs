@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/favicon.ico">
+    <script defer src="/js/overview.js"></script>
+    <link rel="shortcut icon" href="/logo.png">
+    <title>dashboard :: knightrider</title>
+
+
+</head>
+
+<body>
+
+    <%- include('../partials/dash-navbar.ejs') %>
+
+
+
+        <div class="flex-containor">
+            <%- include('../partials/dashboard-menu.ejs') %>
+                <div class="view">
+                    <div class="headding">
+                        <h1>Server Overview</h1>
+                        <h3>overview of your server and some quick settings to change</h3>
+                    </div>
+                    <div style="margin: 20px;margin-top: 50px;">
+
+                        <p id="info"></p>
+                    </div>
+                    <div class="infoboxes">
+                        <div>
+                            <p>Members:
+                                <span><%= memberCount %></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="prefix-container">
+                        <div class="container">
+                            <h1>Prefix: <abbr title="the bots prefix for this server">?</abbr></h1>
+                            <input type="text" id="prefix" value="<%= currentServer.prefix %>">
+                            <button onclick="sendupdate()">Update</button>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+
+                    <h2>STAFF</h2>
+                    <div class="container">
+                        <h1>Staff Member ids': <abbr title="all users with an id in this menu can accss the dashboard and execute staf only commands in the server">?</abbr></h1>
+                        <div class="filters" id="staffids"></div>
+                        <input type="text" id="staffidsInput" placeholder="id...">
+                        <button class="button" onclick="addToStaffids()">Add To list</button>
+                        <button class="button" onclick="removeStaffids()">remove from list</button>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="container">
+                        <h1>Staff Role Names: <abbr title="the people with these roles can execute staff only commands in the server (they do not have access to the dashboard)">?</abbr></h1>
+                        <div class="filters" id="staffRoles"></div>
+                        <input type="text" id="staffRolesInput" placeholder="Name...">
+                        <button class="button" onclick="addToStaffRoles()">Add To list</button>
+                        <button class="button" onclick="removeStaffRoles()">remove from list</button>
+                    </div>
+                    <br>
+                    <br>
+                    <h2>CHANNELS</h2>
+                    <div class="container">
+                        <h1>modlogs: <abbr title="filter actions and other moderation acctions proformed by or using the bot will be sent to this channel">?</abbr></h1>
+                        <input type="text" id="modlogs" placeholder="channel id.." value="<%= currentServer.channels.modLogs %>">
+                        <button onclick="sendupdate()">Update</button>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h1>announcments: <abbr title="ysed for announcments sent form the bot">?</abbr></h1>
+                        <input type="text" id="announcments" placeholder="channel id.." value="<%= currentServer.channels.announcments %>">
+                        <button onclick="sendupdate()">Update</button>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h1>townhall: <abbr title="your town hall voice channel id ">?</abbr></h1>
+                        <input type="text" id="townhall" placeholder="voice channel id.." value="<%= currentServer.channels.townhall %>">
+                        <button onclick="sendupdate()">Update</button>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h1>townhallLogs: <abbr title="text channel for logs to do with your townhall channel e.g. user joines">?</abbr></h1>
+                        <input type="text" id="townhallLogs" placeholder="channel id.." value="<%= currentServer.channels.townhallLogs %>">
+                        <button onclick="sendupdate()">Update</button>
+                    </div>
+                    <br>
+
+
+                </div>
+        </div>
+
+        <%- include('../partials/footer.ejs') %>
+            <script>
+                document.getElementById('overview').classList.add('view-btn-active');
+                var domain = '<%= domain %>';
+                var currentServer = <%- JSON.stringify(currentServer) %>;
+                var user = <%-JSON.stringify(user) %>;
+                var staffids = <%-JSON.stringify(currentServer.staff) %>;
+                var staffRoles = <%-JSON.stringify(currentServer.staffRoles) %>;
+            </script>
+</body>
+
+</html>

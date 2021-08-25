@@ -1,0 +1,24 @@
+{
+    "prefix": ".",
+    "owner": "522534458071449620",
+    "domain": "http://localhost:4758",
+    "port": "4758",
+    "cwh11": "276156203770314755",
+    "colour": {
+        "ok": "#ff0000",
+        "error": "#ff5733"
+    },
+    "mainServer": {
+        "invite": "https://discord.gg/52AugmVzjt",
+        "id": "here"
+    },
+    "bot": {
+        "name": "knightrider",
+        "logo": "https://cdn.discordapp.com/icons/584484766997282836/337d9f62b88bc8d343be2bb3bc90292f.png",
+        "url": "http://knightrider.invalidlag.com/me"
+    },
+    "webServer": {
+        "port": 4758,
+        "oauthURI": "here"
+    }
+}

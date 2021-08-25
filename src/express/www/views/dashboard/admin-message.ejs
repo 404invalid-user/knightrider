@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/logo.png">
+    <title>message-dashboard :: knightrider</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #2C2F33;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .headding {
+            margin-left: 3.4%;
+        }
+        
+        input[type=text],
+        select,
+        textarea {
+            width: 30%;
+            padding: 12px;
+            border: 1px solid #2C2F33;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+            background-color: #4c4e55;
+            color: #ffffff;
+        }
+        
+        .button {
+            background-color: #5865F2;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            background-color: #5460e7;
+        }
+        
+        .button#submit:hover {
+            background-color: #EB459E;
+        }
+        
+        .container {
+            border-radius: 5px;
+            background-color: #40444B;
+            padding: 20px;
+            margin: 12px;
+        }
+        
+        .filterul {
+            margin: 0;
+        }
+        
+        .filterul li {
+            list-style-type: none;
+            float: left;
+            padding: 5px;
+            margin: 3px;
+            border-radius: 5%;
+            background-color: #33363a;
+        }
+        
+        .filters {
+            margin-bottom: 10px;
+            display: flex;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <%- include('parts/dash-navbar.ejs') %>
+
+
+
+
+        <div class="headding">
+            <h1>Message sender</h1>
+            <h3>send Embeds and mesages using the bot in channels</h3>
+        </div>
+
+        <div style="margin: 20px;margin-top: 50px;">
+            <p style="margin: 20px;margin-left: 0;"><a class="button" href="/oauth">Dashboard</a>
+                <a class="button" href="/dash/userinfo?userid=<%= userInfo.id %>&tmpPassWord=<%= tmpPassWord %>&username=<%= userInfo.username %>&userAvatar=<%= userInfo.avatar %>">Member Information</a>
+                <a class="button" href="/dash/message?userid=<%= userInfo.id %>&tmpPassWord=<%= tmpPassWord %>&username=<%= userInfo.username %>&userAvatar=<%= userInfo.avatar %>">Sent Embeds And Messages</a></p>
+            <br>
+            <br>
+            <p id="info"></p>
+        </div>
+
+        <div class="container">
+            <h1>Send Message:</h1>
+            <input type="text" id="messageInput" placeholder="message...">
+            <button class="button" onclick="sendMessage()">Send</button>
+        </div>
+        <br>
+        <br>
+
+
+        <div class="container">
+            <h1>Send Embed:</h1>
+
+            <input type="text" id="filterSafeInput" placeholder="word...">
+            <button class="button" onclick="addTofilterSafe()">Add To Filter</button>
+            <button class="button" onclick="removeFilterSafe()">remove from Filter</button>
+        </div>
+
+
+
+        <%- include('parts/footer.ejs') %>
+</body>
+<script>
+    var userInfo = <%-JSON.stringify(userInfo) %>
+    var filterNormal = <%-JSON.stringify(filterNormal) %>
+    var tmpPassWord = <%= tmpPassWord %>
+    var normalstr = '<ul class="filterul">'
+    filterNormal.forEach(function(word) {
+        normalstr += '<li>' + word + '</li>';
+    });
+    normalstr += '</ul>';
+    document.getElementById("filterNormal").innerHTML = normalstr;
+
+
+    async function addTofilterNormal() {
+        document.getElementById("info").innerHTML = ''
+        var newWord = document.getElementById('filterNormalInput').value.toLowerCase()
+
+        await filterNormal.push(newWord)
+
+        var str = '<ul class="filterul">'
+
+        filterNormal.forEach(function(word) {
+            str += '<li>' + word + '</li>';
+        });
+
+        str += '</ul>';
+        document.getElementById("filterNormal").innerHTML = str;
+        document.getElementById('filterNormalInput').value = ""
+
+    }
+
+    async function removeFilterNormal() {
+        document.getElementById("info").innerHTML = ''
+        var newWord = document.getElementById('filterNormalInput').value.toLowerCase()
+        const index = filterNormal.indexOf(newWord);
+        if (index > -1) {
+            filterNormal.splice(index, 1);
+            var str = '<ul class="filterul">'
+
+            filterNormal.forEach(function(word) {
+                str += '<li>' + word + '</li>';
+            });
+
+            str += '</ul>';
+            document.getElementById("filterNormal").innerHTML = str;
+            document.getElementById('filterNormalInput').value = ""
+        } else {
+            document.getElementById('filterNormalInput').value = ""
+        }
+    }
+
+    var filterSafe = <%-JSON.stringify(filterSafe) %>
+    var safestr = '<ul class="filterul">'
+
+    filterSafe.forEach(function(word) {
+        safestr += '<li>' + word + '</li>';
+    });
+
+    safestr += '</ul>';
+    document.getElementById("filterSafe").innerHTML = safestr;
+
+    async function addTofilterSafe() {
+        document.getElementById("info").innerHTML = ''
+        var newWord = document.getElementById('filterSafeInput').value.toLowerCase()
+
+        await filterSafe.push(newWord)
+
+        var str = '<ul class="filterul">'
+
+        filterSafe.forEach(function(word) {
+            str += '<li>' + word + '</li>';
+        });
+
+        str += '</ul>';
+        document.getElementById("filterSafe").innerHTML = str;
+        document.getElementById('filterSafeInput').value = ""
+
+    }
+
+    async function removeFilterSafe() {
+        document.getElementById("info").innerHTML = ''
+        var newWord = document.getElementById('filterSafeInput').value.toLowerCase()
+        const index = filterSafe.indexOf(newWord);
+        if (index > -1) {
+            filterSafe.splice(index, 1);
+            var str = '<ul class="filterul">'
+
+            filterSafe.forEach(function(word) {
+                str += '<li>' + word + '</li>';
+            });
+
+            str += '</ul>';
+            document.getElementById("filterSafe").innerHTML = str;
+            document.getElementById('filterSafeInput').value = ""
+        } else {
+            document.getElementById('filterSafeInput').value = ""
+        }
+    }
+
+
+
+
+    async function updateFilters() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'http://idiotlanparty.com:4758/api/dash/updatefilter', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader("access-control-allow-origin", "*");
+        await xhr.send(JSON.stringify({
+            userInfo: userInfo,
+            tmpPassWord: tmpPassWord,
+            normalFilter: filterNormal,
+            safeFilter: filterSafe
+        }));
+        document.getElementById("info").innerHTML = "Filter has been updated"
+    }
+</script>
+
+</html>

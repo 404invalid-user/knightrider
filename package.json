@@ -1,0 +1,36 @@
+{
+    "name": "knightrider",
+    "version": "4.8.420",
+    "description": "a bot for a private discord server",
+    "updatenote": "major update: now using a database, fixed exploit that allowed users to add the bot to their server give themself the Staff role and edit staff only options in CWH11's Hangout Crew, multiple server support, a better dashboard and now opensource.",
+    "main": "./src/knightrider.js",
+    "scripts": {
+        "start": "node ./src/knightrider.js",
+        "help": "if you need help with this bot please look at http://knightrider.invalidlag.com/help/"
+    },
+    "author": "404invalid-user",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/404invalid-user/knightrider.git"
+    },
+    "license": "Apache license 2.0",
+    "dependencies": {
+        "@discordjs/opus": "*",
+        "body-parser": "*",
+        "discord-bitfield-calculator": "^1.0.0",
+        "discord.js": "^12.5.3",
+        "ejs": "*",
+        "express": "*",
+        "express-rate-limit": "*",
+        "ffmpeg-static": "*",
+        "minecraft-server-util": "*",
+        "mongoose": "*",
+        "node-fetch": "*",
+        "randomstring": "*",
+        "request": "*",
+        "url": "^*",
+        "util": "*",
+        "yt-search": "*",
+        "ytdl-core": "*"
+    }
+}
