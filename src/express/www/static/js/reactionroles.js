@@ -16,18 +16,13 @@ function loadroles() {
     document.getElementById("ReactionRoles").innerHTML = rrstr;
 }
 
-
 async function addReactionRole() {
     document.getElementById("info").innerHTML = ''
     var channel = document.getElementById('ReactionRoleChannel').value.toLowerCase().replace(' ', '')
     var role = document.getElementById('ReactionRole').value.toLowerCase().replace(' ', '');
     var emoji = document.getElementById('ReactionRoleEmoji').value;
-
     await reactionRoles.push({ channelID: channel, roleID: role, emoji: emoji });
-
     loadroles()
-
-    document.getElementById('ReactionRoleChannel').value = '';
     document.getElementById('ReactionRole').value = '';
     document.getElementById('ReactionRoleEmoji').value = '';
 }
@@ -35,18 +30,17 @@ async function addReactionRole() {
 async function removeReactionRole() {
     document.getElementById("info").innerHTML = ''
     var role = document.getElementById('ReactionRole').value.toLowerCase().replace(' ', '');
-    var channel = document.getElementById('ReactionRoleChannel').value.toLowerCase().replace(' ', '')
-
+    var channel = document.getElementById('ReactionRoleChannel').value.toLowerCase().replace(' ', '');
+    var emoji = document.getElementById('ReactionRoleEmoji').value;
     for (let i = 0; i < reactionRoles.length; i++) {
-
         if (reactionRoles[i].channelID == channel) {
             if (reactionRoles[i].roleID == role) {
-                reactionRoles.splice(i, 1);
-                loadroles()
-                document.getElementById('ReactionRoleChannel').value = '';
-                document.getElementById('ReactionRole').value = '';
-                document.getElementById('ReactionRoleEmoji').value = '';
-
+                if (reactionRoles[i].emoji == emoji) {
+                    reactionRoles.splice(i, 1);
+                    loadroles()
+                    document.getElementById('ReactionRole').value = '';
+                    document.getElementById('ReactionRoleEmoji').value = '';
+                };
             };
         };
     };

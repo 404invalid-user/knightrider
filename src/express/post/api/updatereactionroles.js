@@ -12,63 +12,67 @@ module.exports = {
             if (currentUser == null) return res.status(404).json({ error: "404 - cant find you in the db" });
             let currentServer = await Server.findOne({ id: req.body.server.id });
             if (currentServer == null) return res.status(404).json({ error: "404 - cant find that server in the db" });
-
-            let hasAccess = false;
-            await currentUser.accessCodes.forEach(async(userCode) => {
-                if (req.body.user.accesscode == userCode.code) {
-                    hasAccess = true;
-                    currentServer.reactionRoles = await req.body.reactionRoles;
-                    currentServer.save();
-                    let eachChannelRoles = {};
-                    await currentServer.reactionRoles.forEach(role => {
-                        if (!eachChannelRoles[role.channelID]) {
-                            eachChannelRoles[role.channelID] = [{
-                                roleID: role.roleID,
-                                emoji: role.emoji
-                            }];
-                        } else {
-                            eachChannelRoles[role.channelID].push({
-                                roleID: role.roleID,
-                                emoji: role.emoji
-                            });
-                        };
-                    });
-                    for (let i in eachChannelRoles) {
-                        let rolesEmbed = {
-                            color: conf.colour.ok,
-                            title: 'ReactionRoles',
-                            url: conf.domain,
-                            author: {
-                                name: conf.bot.name,
-                                icon_url: conf.bot.logo,
-                                url: conf.bot.url,
-                            },
-                            description: 'react with the appropriate emoji to get your role',
-                            fields: [],
-                            timestamp: new Date(),
-                            footer: {
-                                text: currentServer.name,
-                            },
-                        };
-
-
-                        await eachChannelRoles[i].forEach(role => {
-                            rolesEmbed.fields.push({
-                                name: '\u200B',
-                                value: '<@&' + role.roleID + '> - ' + role.emoji,
-                            });
+            let guild = await currentUser.guilds[currentServer.id];
+            if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
+                let hasAccess = false;
+                await currentUser.accessCodes.forEach(async(userCode) => {
+                    if (req.body.user.accesscode == userCode.code) {
+                        hasAccess = true;
+                        currentServer.reactionRoles = await req.body.reactionRoles;
+                        currentServer.save();
+                        let eachChannelRoles = {};
+                        await currentServer.reactionRoles.forEach(role => {
+                            if (!eachChannelRoles[role.channelID]) {
+                                eachChannelRoles[role.channelID] = [{
+                                    roleID: role.roleID,
+                                    emoji: role.emoji
+                                }];
+                            } else {
+                                eachChannelRoles[role.channelID].push({
+                                    roleID: role.roleID,
+                                    emoji: role.emoji
+                                });
+                            };
                         });
-                        const channel = client.guilds.cache.get(currentServer.id).channels.cache.get(i)
-                        if (channel !== undefined) {
-                            const msg = await channel.send({ embed: rolesEmbed });
-                            eachChannelRoles[i].forEach(role => {
-                                msg.react(role.emoji);
+                        for (let i in eachChannelRoles) {
+                            let rolesEmbed = {
+                                color: conf.colour.ok,
+                                title: 'ReactionRoles',
+                                url: conf.domain,
+                                author: {
+                                    name: conf.bot.name,
+                                    icon_url: conf.bot.logo,
+                                    url: conf.bot.url,
+                                },
+                                description: 'react with the appropriate emoji to get your role',
+                                fields: [],
+                                timestamp: new Date(),
+                                footer: {
+                                    text: currentServer.name,
+                                },
+                            };
+
+
+                            await eachChannelRoles[i].forEach(role => {
+                                rolesEmbed.fields.push({
+                                    name: '\u200B',
+                                    value: '<@&' + role.roleID + '> - ' + role.emoji,
+                                });
                             });
+                            const channel = client.guilds.cache.get(currentServer.id).channels.cache.get(i)
+                            if (channel !== undefined) {
+                                const msg = await channel.send({ embed: rolesEmbed });
+                                eachChannelRoles[i].forEach(role => {
+                                    msg.react(role.emoji);
+                                });
+                            };
                         };
+                        return res.status(200).json({ error: "no", message: "reactionroles have been updates" });
                     };
-                    return res.status(200).json({ error: "no", message: "reactionroles have been updates" });
-                };
-            });
+                });
+            } else {
+                return res.status(401).json({ error: "401 - unauthorised", info: "your user does not own the server or have a staff role or pi is listed as a staff member" });
+            }
             if (hasAccess == false) return res.status(401).json({ error: "401 - unauthorised", info: "please include your accesscode and user id to use this api more info in the docs " + conf.domain + '/docs' });
         } catch (error) {
             console.log(error);

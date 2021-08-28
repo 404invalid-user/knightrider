@@ -15,13 +15,9 @@ module.exports = {
             let currentUser = await Userdashboard.findOne({ userId: res.locals.cookie.id })
             let currentServer = await Server.findOne({ id: req.params.serverid })
             if (currentServer == null) return res.render('404.ejs')
-            let hasAccess = false;
-            await currentUser.guilds.forEach(guild => {
-                if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
-                    hasAccess = true;
-                };
-            });
-            if (hasAccess == true) {
+            let guild = await currentUser.guilds[currentServer.id];
+            if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
+                let hasAccess = false;
                 await currentUser.accessCodes.forEach(async(userCode) => {
                     if (res.locals.cookie.accesscode == userCode.code) {
 
@@ -33,7 +29,7 @@ module.exports = {
                 if (hasAccess == false) return res.redirect('/login?ninvalidcode');
 
             } else {
-                await res.status(401).render('error.ejs', { errorMessage: null, error: "you do not have access to the admin dashboard if you are a member of staff fill out http://knightrider.rf.gd/er/admin.php", userInfo: { id: req.query.userid, username: req.query.userame, avatar: req.query.userAvatar } })
+                await res.status(401).render('error.ejs', { errorMessage: null, error: "you do not have access to the admin dashboard if you are a member of staff tell the bot owner", userInfo: { id: req.query.userid, username: req.query.userame, avatar: req.query.userAvatar } })
             }
         } catch (error) {
             console.log(error)

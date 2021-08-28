@@ -2,8 +2,9 @@
  * licence https://github.com/404invalid-user/knightrider/blob/main/LICENCE
  */
 const getServer = require('../funcs/getserver');
+const conf = require('../conf/conf.json')
 module.exports = {
-    otrCommand: async function(message, args, Discord, client) {
+    otrCommand: async function(message, args, Discord, server, messageUser, client) {
         if (message.author.id == conf.cwh11) {
             let server = getServer(message);
             if (server == null) return message.channel.send("this server isnt in the db");

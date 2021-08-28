@@ -1,8 +1,8 @@
 {
     "name": "knightrider",
-    "version": "4.8.420",
+    "version": "4.8.434",
     "description": "a bot for a private discord server",
-    "updatenote": "major update: now using a database, fixed exploit that allowed users to add the bot to their server give themself the Staff role and edit staff only options in CWH11's Hangout Crew, multiple server support, a better dashboard and now opensource.",
+    "updatenote": "small update (untested): fixed non staff from accessing dashboard by doing to domain/server/:server-id",
     "main": "./src/knightrider.js",
     "scripts": {
         "start": "node ./src/knightrider.js",
