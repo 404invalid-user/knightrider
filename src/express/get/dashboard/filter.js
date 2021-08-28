@@ -15,21 +15,25 @@ module.exports = {
             let currentUser = await Userdashboard.findOne({ userId: res.locals.cookie.id })
             let currentServer = await Server.findOne({ id: req.params.serverid })
             if (currentServer == null) return res.render('404.ejs')
-            let guild = await currentUser.guilds[currentServer.id];
-            if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
-                let hasAccess = false;
-                await currentUser.accessCodes.forEach(async(userCode) => {
-                    if (res.locals.cookie.accesscode == userCode.code) {
+            let gAccess = false;
+            await currentUser.guilds.forEach(guild => {
+                if (guild.id == currentServer.id) {
+                    gAccess = true;
+                    if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
+                        let hasAccess = false;
+                        await currentUser.accessCodes.forEach(async(userCode) => {
+                            if (res.locals.cookie.accesscode == userCode.code) {
 
-                        hasAccess = true;
-                        return res.cookie('id', currentUser.userId, { expires: new Date(253402300000000), httpOnly: true }).cookie('accesscode', res.locals.cookie.accesscode, { expires: new Date(253402300000000), httpOnly: true }).render('dashboard/filter.ejs', { domain: conf.domain, user: { id: currentUser.userId, accesscode: res.locals.cookie.accesscode }, currentUser: currentUser, currentServer: currentServer });
+                                hasAccess = true;
+                                return res.cookie('id', currentUser.userId, { expires: new Date(253402300000000), httpOnly: true }).cookie('accesscode', res.locals.cookie.accesscode, { expires: new Date(253402300000000), httpOnly: true }).render('dashboard/filter.ejs', { domain: conf.domain, user: { id: currentUser.userId, accesscode: res.locals.cookie.accesscode }, currentUser: currentUser, currentServer: currentServer });
+                            };
+                        });
+                        if (hasAccess == false) return res.redirect('/login?ninvalidcode');
                     };
-                });
-
-                if (hasAccess == false) return res.redirect('/login?ninvalidcode');
-
-            } else {
-                await res.status(401).render('error.ejs', { errorMessage: null, error: "you do not have access to the admin dashboard if you are a member of staff tell the bot owner", userInfo: { id: req.query.userid, username: req.query.userame, avatar: req.query.userAvatar } })
+                };
+            });
+            if (gAccess == false) {
+                return res.status(401).render('error.ejs', { errorMessage: null, error: "you do not have access to the admin dashboard if you are a member of staff tell the bot owner" })
             }
         } catch (error) {
             console.log(error)

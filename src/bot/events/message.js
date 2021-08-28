@@ -17,7 +17,7 @@ module.exports = {
         if (currentServer == null) return;
 
         ['caps', 'swearfilter'].forEach(addon => {
-            require(`../addons/${addon}`)(message, server, messageUser, client);
+            require(`../addons/${addon}`)(message, currentServer, messageUser, client);
         })
 
         //eval command

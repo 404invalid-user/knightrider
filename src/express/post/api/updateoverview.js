@@ -13,31 +13,35 @@ module.exports = {
             if (currentUser == null) return res.status(404).json({ error: "404 - cant find you in the db", message: "that user id cant be found" });
             let currentServer = await Server.findOne({ id: req.body.server.id });
             if (currentServer == null) return res.status(404).json({ error: "404 - cant find that server in the db", message: "that server id cant be found" });
-            let guild = await currentUser.guilds[currentServer.id];
-            if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
+            let gAccess = false;
+            await currentUser.guilds.forEach(guild => {
+                if (guild.id == currentServer.id) {
+                    gAccess = true;
+                    if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
 
-                let hasAccess = false;
-                await currentUser.accessCodes.forEach(async(userCode) => {
-                    if (req.body.user.accesscode == userCode.code) {
-                        hasAccess = true;
-                        //apply all data from the req to the db (probabbly a better way to do this)
-                        currentServer.prefix = req.body.prefix || prefix;
-                        currentServer.staff = req.body.staffids || [];
-                        currentServer.staffRoles = req.body.staffRoles || [];
-                        currentServer.channels.modLogs = req.body.channels.modlogs || ' ';
-                        currentServer.channels.announcments = req.body.channels.announcments || ' ';
-                        currentServer.channels.townhall = req.body.channels.townhall || ' ';
-                        currentServer.channels.townhallLogs = req.body.channels.townhallLogs || ' ';
-                        currentServer.save();
-                        return res.status(200);
-                    };
-                });
-            } else {
-                return res.status(401).json({ error: "401 - unauthorised", info: "your user does not own the server or have a staff role or pi is listed as a staff member" });
-            };
-
-
-            if (hasAccess == false) return res.status(401).JSON({ error: "401 - unauthorised", info: "please include your accesscode and user id to use this api more info in the docs " + conf.domain + '/docs' });
+                        let hasAccess = false;
+                        await currentUser.accessCodes.forEach(async(userCode) => {
+                            if (req.body.user.accesscode == userCode.code) {
+                                hasAccess = true;
+                                //apply all data from the req to the db (probabbly a better way to do this)
+                                currentServer.prefix = req.body.prefix || prefix;
+                                currentServer.staff = req.body.staffids || [];
+                                currentServer.staffRoles = req.body.staffRoles || [];
+                                currentServer.channels.modLogs = req.body.channels.modlogs || ' ';
+                                currentServer.channels.announcments = req.body.channels.announcments || ' ';
+                                currentServer.channels.townhall = req.body.channels.townhall || ' ';
+                                currentServer.channels.townhallLogs = req.body.channels.townhallLogs || ' ';
+                                currentServer.save();
+                                return res.status(200);
+                            };
+                        });
+                    }
+                }
+            });
+            if (hasAccess == false) return res.status(401).json({ error: "401 - unauthorised", info: "please include your accesscode and user id to use this api more info in the docs " + conf.domain + '/docs' });
+            if (gAccess == false) {
+                return res.status(401).render('error.ejs', { errorMessage: null, error: "you do not have access to the admin dashboard if you are a member of staff tell the bot owner" })
+            }
         } catch (error) {
             console.log(error);
             res.status(500).JSON({ error: "some error happened", info: "report this if it happenes again. " + domain + '/er' });
