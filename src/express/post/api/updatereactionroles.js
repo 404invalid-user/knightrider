@@ -13,7 +13,7 @@ module.exports = {
             let currentServer = await Server.findOne({ id: req.body.server.id });
             if (currentServer == null) return res.status(404).json({ error: "404 - cant find that server in the db" });
             let gAccess = false;
-            await currentUser.guilds.forEach(guild => {
+            await currentUser.guilds.forEach(async (guild) => {
                 if (guild.id == currentServer.id) {
                     gAccess = true;
                     if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
