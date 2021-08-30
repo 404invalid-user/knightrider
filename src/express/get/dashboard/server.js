@@ -17,7 +17,7 @@ module.exports = {
             let currentServer = await Server.findOne({ id: req.params.serverid })
             if (currentServer == null) return res.render('404.ejs');
             let gAccess = false;
-            await currentUser.guilds.forEach(guild => {
+            await currentUser.guilds.forEach(async (guild) => {
                 if (guild.id == currentServer.id) {
                     gAccess = true;
                     if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
