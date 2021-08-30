@@ -17,11 +17,12 @@ module.exports = {
             let currentServer = await Server.findOne({ id: req.params.serverid })
             if (currentServer == null) return res.render('404.ejs');
             let gAccess = false;
+            let hasAccess = false;
+
             await currentUser.guilds.forEach(async (guild) => {
                 if (guild.id == currentServer.id) {
                     gAccess = true;
                     if (guild.userPermission == 'owner' || guild.userPermission == 'MANAGE_GUILD' || currentServer.staff.includes(currentUser.userId)) {
-                        let hasAccess = false;
                         await currentUser.accessCodes.forEach(async(userCode) => {
                             if (res.locals.cookie.accesscode == userCode.code) {
                                 hasAccess = true;
