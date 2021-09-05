@@ -22,7 +22,7 @@ module.exports = {
                         serverEmbed.addField(`__**players:**__`, `${dynamicResponse.clients}/${dynamicResponse.sv_maxclients}`, true)
 
 
-                    }).on('error', function(error) {
+                    }).on('error', function (error) {
                         console.log('error: ' + error)
                     })
                 })
@@ -87,7 +87,7 @@ module.exports = {
                         body += chunk
                     })
 
-                    result.on('end', () => {
+                    result.on('end', async () => {
                         var response = JSON.parse(body)
                         if (response.length == 0 || response.length < 0) {
                             playersEmbed.addField("__info__", `no one is on the server`)
@@ -95,7 +95,13 @@ module.exports = {
 
                         let i;
                         for (i = 0; i < response.length; i++) {
-                            playersEmbed.addField(`player ${i}:`, `__**name:**__ ${response[i].name} \n __**discord:**__ <@!${response[i].identifiers[3].replace('discord:', '')}> \n __**fiveM id:**__ ${response[i].id} \n __**ping:**__ ${response[i].ping} \n`)
+                            let discordID = '';
+                            await response[i].identifiers.forEach(id => {
+                                if (id.includes('discord:')) {
+                                    discordID = id.replace('discord:', '');
+                                }
+                            });
+                            playersEmbed.addField(`player ${i}:`, `__**name:**__ ${response[i].name} \n __**discord:**__ <@!${discordID}> \n __**fiveM id:**__ ${response[i].id} \n __**ping:**__ ${response[i].ping} \n`)
                         }
                         if (i == response.length) {
                             try {
@@ -106,7 +112,7 @@ module.exports = {
                             }
                         }
 
-                    }).on('error', function(error) {
+                    }).on('error', function (error) {
                         console.log('error: ' + error)
                     })
                 })
