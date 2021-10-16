@@ -1,3 +1,7 @@
+# knightrider
+
+mfking discord bot with all that shit
+
 ### file structure 
 this is the guide on what is where
 
