@@ -73,7 +73,7 @@ module.exports = {
             let fivemIpEmbed = new Discord.MessageEmbed()
                 .setAuthor("fiveM ip")
                 .setColor(conf.colour.ok)
-                .setDescription("the fiveM server ip is: `" + currentServer.conf.fivem.ip + "`")
+                .setDescription("the fiveM server ip is: `" + currentServer.configs.fivem.ip + "`")
             message.channel.send(fivemIpEmbed)
         } else if (args[1] == 'players') {
             let playersEmbed = new Discord.MessageEmbed()
