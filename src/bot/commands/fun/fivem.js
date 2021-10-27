@@ -1,7 +1,7 @@
 const http = require('http');
 const conf = require('../../../conf/conf.json')
 module.exports = {
-    name: 'fivem-disables',
+    name: 'fivem',
     description: "`.fivem` gets information for the fivem server. do `.fivem players` to see who is online",
     async execute(message, args, Discord, currentServer, messageUser, client) {
         const url = "http://lxn4gvp-aries1.linuxnodes.net:3000"
