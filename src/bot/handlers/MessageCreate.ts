@@ -27,7 +27,6 @@ const guildPrefixs = new PrefixCache();
 async function getGuildPrefix(guild: Guild) {
 
   let p = guildPrefixs.get(guild.id);
-  console.log("p: "+p)
   if (p !== null) return p;
 
   let guildDoc: GuildAttributes | null = await schemas['Guild'].findOne({

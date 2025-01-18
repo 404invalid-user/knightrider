@@ -6,7 +6,6 @@ export default async function MessageReactionRemove(client: Client, reaction: Me
   if (!reaction.message.guild) return;
   // When a reaction is received, check if the structure is partial
   if (reaction.partial) {
-    console.log("reaction partial")
     try {
       await reaction.fetch();
     } catch (error) {
@@ -17,7 +16,6 @@ export default async function MessageReactionRemove(client: Client, reaction: Me
   }
 
   if (user.partial) {
-    console.log("user partial")
     try {
       await user.fetch();
     } catch (error) {

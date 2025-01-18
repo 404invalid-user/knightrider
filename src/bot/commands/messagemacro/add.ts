@@ -55,9 +55,6 @@ export async function chatInputCommand(client: Client, interaction: ChatInputCom
 
   //get and validate channel
   let channel = interaction.options.getChannel('channel');
-  console.log("balkkd cjrA")
-  console.log(channel
-  )
   if (channel === undefined) channel = null;
   if (channel !== null) {
     if (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement) {

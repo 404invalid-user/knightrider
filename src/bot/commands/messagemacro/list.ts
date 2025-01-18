@@ -33,7 +33,6 @@ export async function chatInputCommand(client: Client, interaction: ChatInputCom
         guild: guild.id,
       },
     });
-    console.log("nuts")
     msgMacros = msgMacroDocs.map((item: any) => item.dataValues);
   } catch (err: any) {
     YALAS.error(err);
@@ -44,8 +43,6 @@ export async function chatInputCommand(client: Client, interaction: ChatInputCom
   if (msgMacros.length === 0) {
     return interaction.editReply("No message macros found.");
   }
-  console.log("balks")
-
 
   const updateEmbed = (index: number) => {
     const currentMacro: MessageMacroAttributes = msgMacros[index];

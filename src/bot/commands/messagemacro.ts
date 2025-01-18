@@ -12,7 +12,7 @@ const data = {
   allowSuspendedUserAccess: false,
   command: new SlashCommandBuilder()
     .setName('messagemacro')
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .setDescription("setup message macros for the server")
     .addSubcommand(subcommand =>
       subcommand

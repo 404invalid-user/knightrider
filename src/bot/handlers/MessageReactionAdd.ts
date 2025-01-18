@@ -5,7 +5,6 @@ import * as YALAS from 'mcstatusbot-logger';
 export default async function MessageReactionAdd(client: Client, reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
 
   if (reaction.partial) {
-    console.log("reaction partial")
     try {
       await reaction.fetch();
     } catch (error) {
@@ -17,7 +16,6 @@ export default async function MessageReactionAdd(client: Client, reaction: Messa
   
 
   if (user.partial) {
-    console.log("user partial")
     try {
       await user.fetch();
     } catch (error) {
