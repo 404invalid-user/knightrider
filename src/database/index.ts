@@ -16,7 +16,11 @@ if (!process.env.DB_URI) {
   process.exit(1);
 }
 
-const sequelize = new Sequelize(process.env.DB_URI);
+const sequelize = new Sequelize(process.env.DB_URI, {
+  logging: (msg) => {
+    if (process.env.DEBUG === 'true') console.log(msg)
+  }
+});
 
 const schemas = {
   BanRole: BanReaction(sequelize),
