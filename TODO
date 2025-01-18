@@ -1,5 +1,15 @@
-better nav bar
-better main page
-batter server page
-better error checking for fivem cmd
-fix discord tag not showing up in fivem commands 
+implement /reactionrole add /reactionrole remove commands--done
+implement add remove message macro cmd
+
+
+
+implement event to listen for reactions and then role them
+
+add onto rr event listner and add this
+add reaction remove listnere
+
+implement /kickrole enable and /kickrole disable
+implement /banrole enable and /banrole disable
+
+
+

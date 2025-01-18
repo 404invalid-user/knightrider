@@ -1,44 +1,36 @@
 # knightrider
-
-mfking discord bot with all that shit
-
-### file structure 
-this is the guide on what is where
-
-```
-| - src - | - applications - \ - bot.js
-|         |                  / - webserver.js
-|         |
-|         | - bot - | - addons
-|         |         | - commands
-|         |         | - events
-|         |         | - handlers
-|         |
-|         | - conf - \ conf.json
-|         |          / tokens.js
-|         |
-|         | - express
-|         |
-|         | - funcs
-|         |
-|         | - models
-```
-
-# knightrider
 the all-purpose open source discord bot for CWH11's Hangout Crew.
 
 
 ### set up
 - go to discord.com/developers and make a bot token
- - bot token goes in src/conf/tokens.js under { bot: {token: "here"} }
+ - take note of the client id, client secret, snd then bot token
 
-- make a mongo db with the schemas "servers" "users"
- - put the mongo db connect uri in src/conf/tokens.js under { db: {URI: "here"} }
+- make a mysql server with a db
 
-- edit neccery information and details in src/conf/conf.json
+- copy the .env.example file to .env fill in the client id, client secret bot token and database uri
 
-- npm install
 
-- npm start
+- from the folder run `npm install --save-dev` then `npm run build` finally `npm run start`
 
-yeah it will be more detailed with the next update.
+## Features
+
+ [ ] - reaction roles
+
+ [ ] - message macros
+
+ [ ] - custom reaction role embeds
+
+ [ ] - reaction ban
+
+ [ ] - reaction kick
+
+ [ ] - user info/strike system
+
+ [ ] - CAPS spam
+
+ ~~[ ] - word filter~~ (use built in auto mod)
+
+ [ ] - simple web dashboard
+
+ ~~[ ] - mc server status command~~ (use McStatus https://mcstauts.net/bot)
