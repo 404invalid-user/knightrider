@@ -1,6 +1,6 @@
 import { Client, MessageReaction, PartialMessageReaction, User, PartialUser, Guild, Role, GuildMember, TextChannel } from "discord.js";
 import { schemas } from "../../database";
-//@ts-expect-error
+
 import * as YALAS from 'mcstatusbot-logger';
 export default async function ReactionRoleAddHandler(reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
   if (reaction.message.guild === undefined) return;
@@ -53,8 +53,8 @@ export default async function ReactionRoleAddHandler(reaction: MessageReaction |
 
       //TODO: implement ignore reaction reomve when using this
       //reaction.users.remove(user.id);
-      //@ts-expect-error
-      const errUsrMsg = await channel.send(`Sorry <@!${user.id}>, that did not work please try again later or ask a moderator.`);
+      
+      const errUsrMsg = await (channel as TextChannel).send(`Sorry <@!${user.id}>, that did not work please try again later or ask a moderator.`);
 
       setTimeout(() => {
         errUsrMsg.delete().catch((e: any) => null);

@@ -2,7 +2,7 @@ import { Client, ChatInputCommandInteraction, Role, GuildChannelResolvable, Perm
 
 import parseEmoji from "../../functions/parseEmoji";
 import { schemas } from "../../../database";
-//@ts-expect-error
+
 import YALAS from 'mcstatusbot-logger';
 
 import SendReactionRoleEmbed from "../../functions/SendReactionRoleEmbed";

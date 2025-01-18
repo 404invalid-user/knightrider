@@ -1,6 +1,6 @@
 import { Client, Interaction, ChatInputCommandInteraction, User } from "discord.js";
 import { schemas } from '../../database/index';
-//@ts-expect-error
+
 import YALAS from 'mcstatusbot-logger';
 import LookupUser from "../functions/LookupUser";
 import LookupGuild from "../functions/LookupGuild";

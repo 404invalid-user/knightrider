@@ -1,16 +1,14 @@
 import { Client, ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
 
 import { schemas } from "../../database/index";
-//@ts-expect-error
+
 import YALAS from 'mcstatusbot-logger';
 import { GuildInstance } from "../../database/schemas/Guild";
 import { UserInstance } from "../../database/schemas/User";
 
 
 const data = {
-  serverOnly: false,
-  guildId: null,
-  allowSuspendedUserAccess: true,
+  allowSuspendedUserAccess: false,
   command: new SlashCommandBuilder()
     .setName('setprefix')
     .setDescription("sets the message prefix for your server")

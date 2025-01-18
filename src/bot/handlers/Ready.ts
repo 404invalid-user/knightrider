@@ -1,5 +1,5 @@
 import { Client, ActivityType } from 'discord.js';
-//@ts-expect-error
+
 import YALAS from 'mcstatusbot-logger';
 
 export default function Ready(client: Client) {

@@ -1,6 +1,6 @@
 import { Client, MessageReaction, PartialMessageReaction, User, PartialUser } from "discord.js";
 import ReactionRoleRemoveHandler from "../functions/ReactionRoleRemoveHandler";
-//@ts-expect-error
+
 import * as YALAS from 'mcstatusbot-logger';
 export default async function MessageReactionRemove(client: Client, reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
   if (!reaction.message.guild) return;

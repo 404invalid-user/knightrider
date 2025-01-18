@@ -1,17 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es2017"],
-    "module": "commonjs",
-    "declaration": true,
+    "target": "ES2022", // Use the latest syntax supported by Node.js 23
+    "module": "NodeNext", // Enables ES Modules with support for .js extensions
+    "moduleResolution": "NodeNext", // Required for NodeNext modules
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "strict": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "typeRoots": ["./node_modules/@types", "./types"] // Ensure custom types are included
+    "noImplicitAny": false,
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
-  "include": ["src/**/*.ts", "types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "types/**/*.d.ts", "types/Client.d.ts"],
   "exclude": ["node_modules"]
 }

@@ -8,7 +8,7 @@ import {
 } from "discord.js";
 
 import { schemas } from "../../../database";
-//@ts-expect-error
+
 import YALAS from "mcstatusbot-logger";
 
 import { GuildInstance } from "../../../database/schemas/Guild";
@@ -26,7 +26,7 @@ export async function chatInputCommand(client: Client, interaction: ChatInputCom
 
   await interaction.deferReply();
 
-  let msgMacros = [];
+  let msgMacros:MessageMacroAttributes[];
   try {
     const msgMacroDocs = await schemas["MessageMacro"].findAll({
       where: {

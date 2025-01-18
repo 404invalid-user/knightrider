@@ -1,7 +1,7 @@
 import { Client, ChatInputCommandInteraction, Role, GuildChannelResolvable, PermissionsBitField, ChannelType } from "discord.js";
 
 import { schemas } from "../../../database";
-//@ts-expect-error
+
 import YALAS from 'mcstatusbot-logger';
 
 import { GuildInstance } from "../../../database/schemas/Guild";

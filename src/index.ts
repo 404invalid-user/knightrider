@@ -11,5 +11,3 @@ async function main(): Promise<void> {
     if (process.env.RELOADCMDS !== 'false') await updateSlashCommands();
     await start();
 }
-
-main();

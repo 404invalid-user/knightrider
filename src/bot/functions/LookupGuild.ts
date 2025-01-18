@@ -1,5 +1,5 @@
 import { schemas } from "../../database";
-//@ts-expect-error
+
 import * as YALAS from 'mcstatusbot-logger';
 import { GuildAttributes } from "../../database/schemas/Guild";
 import { Guild } from "discord.js";

@@ -1,6 +1,6 @@
 import { Client, ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
 
-//@ts-expect-error
+
 import YALAS from 'mcstatusbot-logger';
 
 import * as AddReactionRole from './reactionrole/add';
@@ -9,9 +9,7 @@ import { GuildInstance } from "../../database/schemas/Guild";
 import { UserInstance } from "../../database/schemas/User";
 
 const data = {
-  serverOnly: false,
-  guildId: null,
-  allowSuspendedUserAccess: true,
+  allowSuspendedUserAccess: false,
   command: new SlashCommandBuilder()
     .setName('reactionrole')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles)

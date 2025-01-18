@@ -1,6 +1,6 @@
 import { Client, MessageReaction, PartialMessageReaction, User, PartialUser, Guild, Role, GuildMember, TextChannel, flatten } from "discord.js";
 import { schemas } from "../../database";
-//@ts-expect-error
+
 import * as YALAS from 'mcstatusbot-logger';
 export default async function ReactionRoleRemoveHandler(reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
   if (reaction.message.guild === undefined) return;
@@ -52,8 +52,8 @@ export default async function ReactionRoleRemoveHandler(reaction: MessageReactio
       if (process.env.DEBUG === 'true') YALAS.info(`Added role "${role.name}" to user "${user.tag}".`);
     } catch (error) {
       reaction.users.remove(user.id);
-      //@ts-expect-error
-      const errUsrMsg = await channel.send(`Sorry <@!${user.id}>, that did not work please try again later or ask a moderator.`);
+      
+      const errUsrMsg = await (channel as TextChannel).send(`Sorry <@!${user.id}>, that did not work please try again later or ask a moderator.`);
 
       setTimeout(() => {
         errUsrMsg.delete().catch((e: any) => null);

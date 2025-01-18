@@ -1,6 +1,6 @@
 import { User } from "discord.js";
 import { schemas } from "../../database";
-//@ts-expect-error
+
 import * as YALAS from 'mcstatusbot-logger';
 import { UserAttributes } from '../../database/schemas/User';
 export default async function LookupUser(user: User | null): Promise<UserAttributes | null> {

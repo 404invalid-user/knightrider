@@ -1,6 +1,6 @@
 import { Client, MessageReaction, PartialMessageReaction, User, PartialUser } from "discord.js";
 import ReactionRoleAddHandler from "../functions/ReactionRoleAddHandler";
-//@ts-expect-error
+
 import * as YALAS from 'mcstatusbot-logger';
 export default async function MessageReactionAdd(client: Client, reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
 

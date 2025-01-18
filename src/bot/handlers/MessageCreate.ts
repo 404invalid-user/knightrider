@@ -2,7 +2,7 @@ import { Client, Guild, Message } from "discord.js";
 import MessageMacro from "../messageHandler/plugins/MesageMacro";
 import { schemas } from "../../database";
 import LookupUser from "../functions/LookupUser";
-//@ts-expect-error
+
 import * as YALAS from 'mcstatusbot-logger';
 import { UserAttributes } from "../../database/schemas/User";
 import { GuildAttributes } from "../../database/schemas/Guild";

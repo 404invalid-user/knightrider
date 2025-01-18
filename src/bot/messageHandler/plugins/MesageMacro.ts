@@ -4,13 +4,13 @@ import { GuildAttributes, GuildInstance } from "../../../database/schemas/Guild"
 import { MessageCreateOptions } from "../../../../types/MessageCreate";
 import { schemas } from "../../../database";
 import LookupGuild from "../../functions/LookupGuild";
-//@ts-expect-error
+
 import * as YALAS from 'mcstatusbot-logger';
 
 export default async function MessageMacro(client: Client, msg: Message, msgCmds: string[]) {
   if (msg.guild === null) return;
   if (msg.member === null) return;
-  
+
   const guild: GuildAttributes | null = await LookupGuild(msg.guild);
   if (guild == null) return YALAS.error("MessageCreate guild null")
 
