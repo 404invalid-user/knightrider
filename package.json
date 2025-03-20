@@ -1,12 +1,12 @@
 {
     "name": "knightrider",
-    "version": "4.8.434",
+    "version": "4.9.000",
     "description": "a bot for a private discord server",
-    "updatenote": "small update (untested): fixed non staff from accessing dashboard by doing to domain/server/:server-id",
-    "main": "./src/knightrider.js",
+    "main": "./dist/index.js",
     "scripts": {
-        "start": "node ./src/knightrider.js",
-        "help": "if you need help with this bot please look at http://knightrider.invalidlag.com/help/"
+        "build": "tsc",
+        "start": "node ./dist/index.js",
+        "dev": "nodemon"
     },
     "author": "404invalid-user",
     "repository": {
@@ -15,22 +15,19 @@
     },
     "license": "Apache license 2.0",
     "dependencies": {
-        "@discordjs/opus": "*",
         "body-parser": "*",
         "discord-bitfield-calculator": "^1.0.0",
-        "discord.js": "^12.5.3",
-        "ejs": "*",
-        "express": "*",
-        "express-rate-limit": "*",
-        "ffmpeg-static": "*",
-        "minecraft-server-util": "*",
-        "mongoose": "*",
-        "node-fetch": "*",
-        "randomstring": "*",
-        "request": "*",
-        "url": "^*",
-        "util": "*",
-        "yt-search": "*",
-        "ytdl-core": "*"
+        "discord.js": "^14.16.3",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.1",
+        "mariadb": "^3.4.0",
+        "mcstatusbot-logger": "^1.0.5",
+        "mysql2": "^3.12.0",
+        "sequelize": "^6.37.5"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "nodemon": "^3.1.9",
+        "ts-node": "^10.9.2"
     }
 }
