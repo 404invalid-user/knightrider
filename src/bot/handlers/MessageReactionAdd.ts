@@ -1,5 +1,6 @@
 import { Client, MessageReaction, PartialMessageReaction, User, PartialUser } from "discord.js";
 import ReactionRoleAddHandler from "../functions/ReactionRoleAddHandler";
+import BanReactionHandler from "../functions/BanReactionHandler";
 
 import * as YALAS from 'mcstatusbot-logger';
 export default async function MessageReactionAdd(client: Client, reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
@@ -13,7 +14,7 @@ export default async function MessageReactionAdd(client: Client, reaction: Messa
     }
   }
   if (!reaction.message.guild) return;
-  
+
 
   if (user.partial) {
     try {
@@ -23,12 +24,12 @@ export default async function MessageReactionAdd(client: Client, reaction: Messa
       return;
     }
   }
-  if (user.id===client.user?.id) return;
+  if (user.id === client.user?.id) return;
+
+  const memberBanned = await BanReactionHandler(reaction, user);
+  //non need to try and run reactions roles if member banned
+  if (memberBanned === true) return;
 
   await ReactionRoleAddHandler(reaction, user);
-
-  //TODO: ban role hndler
-  //TODO: kick role handler
-
   return;
 }

@@ -1,4 +1,4 @@
-import { Client, ChatInputCommandInteraction, Role, GuildChannelResolvable, PermissionsBitField } from "discord.js";
+import { Client, ChatInputCommandInteraction, Role, GuildChannelResolvable, PermissionsBitField, ChannelType } from "discord.js";
 
 import parseEmoji from "../../functions/parseEmoji";
 import { schemas } from "../../../database";
@@ -31,7 +31,7 @@ export async function chatInputCommand(client: Client, interaction: ChatInputCom
     });
   }
 
-  if (channel.type !== 0) {
+  if (channel.type !== ChannelType.GuildText) {
     return interaction.reply({
       embeds: [{
         title: "That Will Not Work",
@@ -71,6 +71,15 @@ export async function chatInputCommand(client: Client, interaction: ChatInputCom
       embeds: [{
         title: "Invalid Emoji",
         description: "The selected emoji is invalid please doublecheck it."
+      }]
+    });
+  }
+
+  if (cleanEmoji == '❌') {
+    return interaction.reply({
+      embeds: [{
+        title: "Invalid Emoji",
+        description: "The selected emoji is used for the ban reaction to avoid confusion you can not use it."
       }]
     });
   }
@@ -146,6 +155,7 @@ export async function chatInputCommand(client: Client, interaction: ChatInputCom
     const textChannel = interaction.guild?.channels.cache.get(channel.id);
     if (textChannel === undefined || textChannel.type !== 0) return;
     const embed = await SendReactionRoleEmbed(textChannel, guild.id, channel.id);
+  
 
     return interaction.editReply({
       embeds: [{

@@ -1,6 +1,6 @@
 {
     "name": "knightrider",
-    "version": "4.8.434",
+    "version": "4.9.000",
     "description": "a bot for a private discord server",
     "main": "./dist/index.js",
     "scripts": {

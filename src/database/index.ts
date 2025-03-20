@@ -23,7 +23,7 @@ const sequelize = new Sequelize(process.env.DB_URI, {
 });
 
 const schemas = {
-  BanRole: BanReaction(sequelize),
+  BanReaction: BanReaction(sequelize),
   Guild: Guild(sequelize),
   KickRole: KickReaction(sequelize),
   MessageMacro: MessageMacro(sequelize),
@@ -34,7 +34,6 @@ const schemas = {
 
 
 export async function connect() {
-
   YALAS.info("attempting to connect to db");
   try {
     await sequelize.authenticate();

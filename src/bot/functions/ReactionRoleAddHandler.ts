@@ -44,14 +44,14 @@ export default async function ReactionRoleAddHandler(reaction: MessageReaction |
     let role = await getRole(rRole.role);
     if (role == null) return YALAS.error("failed to find role '" + rRole.role + "' in guild '" + guild.id + "' ")
 
-    //TODO: mod channel logs ad role error etc
+    //TODO: implement audit log
     // Add the role to the member
     try {
       await member.roles.add(role);
       if (process.env.DEBUG === 'true') YALAS.info(`Added role "${role.name}" to user "${user.tag}".`);
     } catch (error) {
 
-      //TODO: implement ignore reaction reomve when using this
+      //TODO: implement ignoring this reaction remove to avoid errors with msg reaction remove handler
       //reaction.users.remove(user.id);
       
       const errUsrMsg = await (channel as TextChannel).send(`Sorry <@!${user.id}>, that did not work please try again later or ask a moderator.`);

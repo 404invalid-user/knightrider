@@ -4,7 +4,6 @@ export interface BanReactionAttributes {
   id: number;
   guild: string;
   channel: string;
-  reaction: string;
 }
 
 export interface BanReactionCreationAttributes extends Optional<BanReactionAttributes, 'id'> { }
@@ -28,11 +27,7 @@ export default function BanRole(sequelize: Sequelize) {
     channel: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    reaction: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    }
   });
 
   // Sync the model with the database

@@ -9,6 +9,7 @@ export default async function ReactionRoleRemoveHandler(reaction: MessageReactio
   const channel = reaction.message.channel;
 
   if (guild === null || emoji === null) return YALAS.error("failed to find guild");
+  if (emoji=='❌') return;
 
 
   async function getRole(roleId: string) {
@@ -46,13 +47,14 @@ export default async function ReactionRoleRemoveHandler(reaction: MessageReactio
 
     if (rRole.dataValues.reactionRemove === false) continue;
 
+    //TODO: implement audit log
     // Add the role to the member
     try {
       await member.roles.remove(role);
       if (process.env.DEBUG === 'true') YALAS.info(`Added role "${role.name}" to user "${user.tag}".`);
     } catch (error) {
       reaction.users.remove(user.id);
-      
+
       const errUsrMsg = await (channel as TextChannel).send(`Sorry <@!${user.id}>, that did not work please try again later or ask a moderator.`);
 
       setTimeout(() => {
